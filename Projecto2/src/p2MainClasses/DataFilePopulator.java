@@ -3,7 +3,10 @@ package p2MainClasses;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * This class initiates the execution of the application that 
@@ -16,25 +19,83 @@ import java.util.Scanner;
  */
 public class DataFilePopulator {
 
-	public void inputAtrributes(){
+	public static void inputAtrributes(){
 
-		String[] TYPES = {"byte", "char", "short", "int", "long", "float", "double",
+		final String[] TYPES = {"byte", "char", "short", "int", "long", "float", "double",
 				"boolean", "date"};
 
-		//voy a necesitar scanner
 		Scanner sc = new Scanner(System.in);
+		Hashtable<String,String> attributes = new Hashtable<>();
+		Set<String> attributeName = attributes.keySet();
 		boolean done = false;
+
 		while(!done)
 		{
 			System.out.println("Next Attribute Name:");
-			String attributeName = sc.nextLine();
+			String name = sc.next();
 			System.out.println("Attribute Data Type:");
-			String attributeType = sc.next();
+			String Type = sc.next();
+			boolean isType = false;
 			for( String types : TYPES)
-				if(!attributeType.equalsIgnoreCase(types))
+				if(Type.equalsIgnoreCase(types))
 				{
-					System.out.println("not acceptable data type. reenter.");
+					isType=true;
 				}
+			if(isType)
+			attributes.put(name, Type);
+			else System.out.println("invalid data type, input again.age");
+			System.out.println("want to add more attributes? 0= yes, 1 =no");
+			int more = sc.nextInt();
+			if(more == 1)
+				done=true;
+		}
+		done = false;
+		while(!done)
+		{
+			System.out.println("add data");
+			for (String name : attributeName) {
+				System.out.println(name + "(" + attributes.get(name) +")" );
+				switch(attributes.get(name))
+				{
+				case "int":
+					sc.nextInt();
+					break;
+				case "char":
+					if(sc.next().length() != 1)
+						//char = leido.getChar(0)
+					break;
+				case "byte":
+					sc.nextByte();
+					break;
+				case "short":
+					sc.nextShort();
+					break;
+				case "long":
+					sc.nextLong();
+					break;
+				case "float":
+					sc.nextFloat();
+					break;
+				case "double":
+					sc.nextDouble();
+					break;
+				case "boolean":
+					sc.nextBoolean();
+					break;
+				case "date":
+					System.out.println("input (mm/dd/yyyy)");
+					String month = sc.next();
+					int day = sc.nextInt();
+					int year = sc.nextInt();
+					//usar date del prof.
+					break;
+				default:
+					System.out.println("wrong data type, begin reading process");
+				}
+				
+				//write to file.
+			}
+
 			System.out.println("want to add more attributes? 0= yes, 1 =no");
 			int more = sc.nextInt();
 			if(more == 1)
@@ -46,7 +107,7 @@ public class DataFilePopulator {
 		// TODO Auto-generated method stub
 
 		RandomAccessFile file;
-
+//		inputAtrributes();
 		String name = "edgardo", surname = "eggie";
 		int age = 21;
 
