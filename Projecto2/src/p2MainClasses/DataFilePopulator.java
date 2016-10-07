@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class DataFilePopulator {
 
-	public void doNothing(){
+	public void inputAtrributes(){
 
 		String[] TYPES = {"byte", "char", "short", "int", "long", "float", "double",
 				"boolean", "date"};
