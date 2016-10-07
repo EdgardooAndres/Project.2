@@ -14,6 +14,8 @@ import java.io.RandomAccessFile;
  *
  */
 public class DataFilePopulator {
+	
+	//voy a necesitar scanner
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -86,5 +88,20 @@ public class DataFilePopulator {
 			e.getStackTrace();
 		}
 
+		//----------------------------------------------------------
+		
+		//create a string to search for
+		
+		//add an if statement at end of inside for loop
+		//that asks if the string searched = a 'name' in the file.
+		
+		//print the data you want to print after that string you have found.
+		
+		
+		//---------------------------------------------------------------
+		
+		//seek(RECORD+j+44)
+		
+		
 	}
 }
