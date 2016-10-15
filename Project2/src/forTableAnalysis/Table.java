@@ -1,30 +1,33 @@
 package forTableAnalysis;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Table {
 	private fileManagement file;
 
+	public Table(fileManagement file)
+	{
+		this.file = file;
+	}
 	public boolean isValidTable() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	public void displayTable() {  //TABLE 1
 		//PRE: the file is a valid table.
 		displaySmallTable();
-		try {
-			while(file.hasNext())
+		
+		ArrayList<Object> data = file.getDataList();
+		while(data.size()!=0)
+		{
+			for (int i = 0; i<file.getColumns() ; i++) 
 			{
-				for (int i = 0; i<file.getColumns() ; i++) 
-					System.out.printf(file.getDataList().get(i).toString() + "%t");
-
-				System.out.printf("%n");
+				System.out.printf(file.getDataList().get(i).toString() + "\t");
+				data.remove(i);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("IOException on method call file.hasNext()");
+
+			System.out.printf("%n");
 		}
 	}
 
@@ -34,7 +37,7 @@ public class Table {
 
 		for (int i = 0; i<file.getColumns() ; i++) 
 			System.out.printf(names.get(i) + "(" + types.get(i) + ")" + 
-					"(" + i +")" +"%t");
+					"(" + (i+1) +")" +"\t");
 	}
 }
 /* ANALYSIS TABLE:

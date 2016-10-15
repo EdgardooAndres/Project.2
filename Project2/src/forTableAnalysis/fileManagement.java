@@ -18,10 +18,8 @@ public class fileManagement extends RandomAccessFile{
 	private short columns;
 	private ArrayList<Integer> IDs = new ArrayList<>(); 
 	private byte nameLength;
-	private char[] columCharNames = new char[25];
 	private ArrayList<String> columNames = new ArrayList<>();
 	private ArrayList<Object> dataList = new ArrayList<>();
-	private IDManager idManager;
 
 	public void readData() throws IOException {
 		//read number of columns
@@ -41,6 +39,7 @@ public class fileManagement extends RandomAccessFile{
 	{
 		//PRE: method readColumns() has been called before.
 		 seek(2);
+		 char[] columCharNames = new char[25];
 		for(short i=0; i<columns; i++)//for each attribute
 		{
 			byte ID =  readByte();
@@ -70,10 +69,6 @@ public class fileManagement extends RandomAccessFile{
 		colectData();		
 	}
 	
-	public boolean hasNext() throws IOException
-	{
-		return (length() !=  getFilePointer());
-	}
 	/*
 	 * 
 	 */
@@ -150,9 +145,32 @@ public class fileManagement extends RandomAccessFile{
 		ArrayList<String> list = new ArrayList<>();
 		for(int c : IDs)
 		{
-			list.add(idManager.IntToString(c));
+			list.add(IntToString(c));
 		}
 		return list;
+	}
+	/**
+	 * Converts and ID from an Integer to it's String equivalent.
+	 * 
+	 * @param c The byte ID to be converted.
+	 * @return The String equivalent of the integer ID.
+	 * 			null if it is convertible
+	 */
+	public String IntToString(int c)
+	{
+		String s = null;
+
+		if((c == 7)){ s = "boolean"; }
+		else if(c == 0){ s = "byte"; }
+		else if(c == 1){ s = "char"; }
+		else if(c == 6){ s = "double"; }
+		else if(c == 5){ s = "float"; }
+		else if(c == 3){ s = "int"; }
+		else if(c == 4){ s = "long"; }
+		else if(c == 2){ s = "short"; }
+		else if(c == 8){ s = "date"; }
+
+		return s;
 	}
 
 	/**
@@ -167,13 +185,6 @@ public class fileManagement extends RandomAccessFile{
 	 */
 	public ArrayList<String> getColumNames() {
 		return columNames;
-	}
-
-	/**
-	 * @return the columCharNames
-	 */
-	public char[] getColumCharNames() {
-		return columCharNames;
 	}
 
 	/**

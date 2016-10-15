@@ -16,11 +16,11 @@ import forTableAnalysis.fileManagement;
  * @author Edgardo Muniz
  *
  */
-public class TableAnalyzer {
+public class TableAnalyzer { 
 
-	private static fileManagement file;
+	private static fileManagement file; //exampleInSpecs (1).pp2
 	private static Scanner sc = new Scanner(System.in);
-	private static Table table = new Table();
+	private static Table table  = new Table(file);;
 	private static ArrayList<Integer> attributeIndexes = new ArrayList<>();
 	private static DataAnalyzer dataAnalyzer = new DataAnalyzer();
 
@@ -50,6 +50,7 @@ public class TableAnalyzer {
 			System.exit(1);
 			
 		}
+		table  = new Table(file);
 		table.displayTable();
 		table.displaySmallTable();
 		/*
