@@ -40,8 +40,8 @@ public class createTable {
 			for(short i=0; i<columns; i++)//for num de atts
 			{
 				readAndPrintBytes(IDs.get(i), file);//get type and read bytes
-				System.out.println("");
 			}
+			System.out.println("");
 		}
 	}
 
