@@ -52,7 +52,7 @@ public class TableAnalyzer {
 		}
 		table  = new Table(file);
 		table.displayTable();
-		table.displaySmallTable();
+//		table.displaySmallTable();
 		/*
 		 * ASK IF USER WANTS TO ANALYZE ATTRIBUTES.
 		 */

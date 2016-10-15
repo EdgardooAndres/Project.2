@@ -1,6 +1,7 @@
 package forTableAnalysis;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Table {
 	private fileManagement file;
@@ -18,15 +19,13 @@ public class Table {
 		//PRE: the file is a valid table.
 		displaySmallTable();
 		
-		ArrayList<Object> data = file.getDataList();
-		while(data.size()!=0)
+		Iterator<Object> it = file.getDataList().iterator();
+		while(it.hasNext())
 		{
 			for (int i = 0; i<file.getColumns() ; i++) 
 			{
-				System.out.printf(file.getDataList().get(i).toString() + "\t");
-				data.remove(i);
+				System.out.printf(it.next().toString() + "\t");
 			}
-
 			System.out.printf("%n");
 		}
 	}
@@ -38,6 +37,7 @@ public class Table {
 		for (int i = 0; i<file.getColumns() ; i++) 
 			System.out.printf(names.get(i) + "(" + types.get(i) + ")" + 
 					"(" + (i+1) +")" +"\t");
+		System.out.printf("%n");
 	}
 }
 /* ANALYSIS TABLE:
