@@ -8,19 +8,29 @@ import java.util.ArrayList;
 
 import DataManegement.Date;
 
+/**
+ * 
+ * @author Edgardo Muniz
+ *
+ */
 public class fileManagement extends RandomAccessFile{
 
 	public fileManagement(File file, String mode) throws FileNotFoundException {
 		super(file, mode);
 	}
-
-//	private fileManagement file;
+	//Instance Variables.
 	private short columns;
 	private ArrayList<Integer> IDs = new ArrayList<>(); 
 	private byte nameLength;
 	private ArrayList<String> columNames = new ArrayList<>();
 	private ArrayList<Object> dataList = new ArrayList<>();
 
+	/**
+	 * Public method to read all the data from a valid table in a
+	 * Random Access File.
+	 * 
+	 * @throws IOException if there is a problem with the file.
+	 */
 	public void readData() throws IOException {
 		//read number of columns
 		readColumns();
@@ -31,15 +41,25 @@ public class fileManagement extends RandomAccessFile{
 		//everything is saved into instance variables.
 	}
 
+	/**
+	 * Reads number of columns there are in the table.
+	 * @throws IOException
+	 */
 	private void readColumns() throws IOException
 	{		 seek(0);
 	columns =  readShort();//read num of atts
 	}
+
+	/**
+	 * Reads the names of the columns.
+	 * 
+	 * @throws IOException
+	 */
 	private void asignAttributeNames() throws IOException
 	{
 		//PRE: method readColumns() has been called before.
-		 seek(2);
-		 char[] columCharNames = new char[25];
+		seek(2);
+		char[] columCharNames = new char[25];
 		for(short i=0; i<columns; i++)//for each attribute
 		{
 			byte ID =  readByte();
@@ -51,11 +71,18 @@ public class fileManagement extends RandomAccessFile{
 				{
 					risizeColumCharNames(columCharNames);
 				}
-				columCharNames[b] =  readChar();//store attributes names 
+				columCharNames[b] =  readChar();//store attributes chars. 
 			}
-			columNames.add(columCharNames.toString());
+			columNames.add(String.valueOf(columCharNames));//String.valueOf(columCharNames) new String(columCharNames)
 		}
 	}
+
+	/**
+	 * Doubles the size of a character array.
+	 * 
+	 * @param arr a character array.
+	 * @return an array with double the length and same data.
+	 */
 	private char[] risizeColumCharNames(char[] arr)
 	{
 		char[] temp = new char[2*arr.length];
@@ -64,50 +91,54 @@ public class fileManagement extends RandomAccessFile{
 		return arr;
 	}
 
-	private void readRecords() throws IOException {
-		// TODO Auto-generated method stub
-		colectData();		
-	}
-	
-	/*
+	/**
+	 * Reads the data from each column of the table.
 	 * 
+	 * @throws IOException
 	 */
-	private void colectData() throws IOException
-	{
+	private void readRecords() throws IOException {
 		while( length() !=  getFilePointer())//while there is more bytes in the document.
 		{
 			for(short i=0; i<columns; i++)//for the number of attributes
 			{
 				readAndSaveBytes(IDs.get(i));//get type and read bytes
 			}
-		}
+		}		
 	}
+
+	/**
+	 * Reads the amount of bytes from a Random Access File according to the 
+	 * data type specified for each column.
+	 * 
+	 * @param ID
+	 * @throws IOException
+	 */
 	private void readAndSaveBytes(int ID) throws IOException {
 		switch(ID)
 		{
 		case 0:
-			dataList.add( readByte());
+			dataList.add(readByte());
 			break;
 		case 1:
-			dataList.add( readChar());
+			dataList.add(readChar());
 			break;
 		case 2:
-			dataList.add( readShort());
+			dataList.add(readShort());
 			break;
 		case 3:
-			dataList.add( readInt());
+			dataList.add(readInt());
 			break;
 		case 4:
-			dataList.add( readLong());
+			dataList.add(readLong());
 			break;
 		case 5:
-			dataList.add( readFloat());
+			dataList.add(readFloat());
 			break;
 		case 6:
-			dataList.add( readDouble());
+			dataList.add(readDouble());
 			break;
 		case 7:
-			dataList.add( readBoolean());
+			dataList.add(readBoolean());
 			break;
 		case 8:
 			dataList.add(readDate());
@@ -115,14 +146,17 @@ public class fileManagement extends RandomAccessFile{
 		}
 
 	}
-	
+
+	/**
+	 * Reads a date as a type.
+	 * 
+	 * @return a date
+	 * @throws IOException if there is a problem reading the date.
+	 */
 	private Date readDate() throws IOException
 	{
 		return new Date( readByte(),  readByte(),  readShort());
 	}
-	/*
-	 * 
-	 */
 
 	/**
 	 * @return the columns
@@ -137,7 +171,7 @@ public class fileManagement extends RandomAccessFile{
 	public ArrayList<Integer> getIDs() {
 		return IDs;
 	}
-	
+
 	/**
 	 * @return the IDs as Strings
 	 */

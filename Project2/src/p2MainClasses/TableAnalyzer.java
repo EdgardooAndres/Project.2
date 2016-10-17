@@ -22,7 +22,7 @@ public class TableAnalyzer {
 	private static Scanner sc = new Scanner(System.in);
 	private static Table table  = new Table(file);;
 	private static ArrayList<Integer> attributeIndexes = new ArrayList<>();
-	private static DataAnalyzer dataAnalyzer = new DataAnalyzer();
+	private static DataAnalyzer dataAnalyzer;
 
 	public static void main(String[] args) {
 
@@ -32,9 +32,10 @@ public class TableAnalyzer {
 		System.out.println("Input File Name:");
 		String fileName = sc.nextLine();
 		checkFile(fileName);
-		
+		table  = new Table(file);
 		if(!table.isValidTable()) //if it is not a valid table then exit the program.
 		{
+			System.out.println("File is not a valid Table.");
 			System.out.println("Process Terminated.");
 			System.exit(1);
 		}
@@ -50,9 +51,8 @@ public class TableAnalyzer {
 			System.exit(1);
 			
 		}
-		table  = new Table(file);
 		table.displayTable();
-//		table.displaySmallTable();
+		System.out.printf("%n%n");
 		/*
 		 * ASK IF USER WANTS TO ANALYZE ATTRIBUTES.
 		 */
@@ -64,6 +64,7 @@ public class TableAnalyzer {
 			System.exit(1);
 		}
 		boolean done = false;
+		table.displaySmallTable();
 		while(!done)
 		{
 			System.out.println("Which attributes do you wish to analyze? (input the number of the column)");
@@ -71,7 +72,9 @@ public class TableAnalyzer {
 			/*
 			 * LIST IS COMPLETED, START ANALYSIS
 			 */
+			dataAnalyzer = new DataAnalyzer(file,attributeIndexes);
 			analyzeData();
+			dataAnalyzer.displayAnalysisTable();
 			/*
 			 * ANALYSIS IS CONCLUDED
 			 */
@@ -84,6 +87,12 @@ public class TableAnalyzer {
 		}
 	}
 
+	/**
+	 * Verifies if the file already exists.
+	 * If it does not, exists the program.
+	 * 
+	 * @param fileName
+	 */
 	private static void checkFile(String fileName) {
 		try{
 			file = new fileManagement(new File("InputData", fileName),"r");
@@ -96,6 +105,10 @@ public class TableAnalyzer {
 		
 	}
 
+	/**
+	 * Calls a method for analyzing the data if the user
+	 * has specified the columns to analyze.
+	 */
 	private static void analyzeData() {
 		// TODO Auto-generated method stub
 
@@ -113,6 +126,9 @@ public class TableAnalyzer {
 		
 	}
 
+	/**
+	 * Request the user to input the columns to analyze
+	 */
 	private static void requestAttributesToAnalyze() {
 		/*
 		 * FOR EACH VALUE ENTERED UNTILL HERE DO FOLLOWING
@@ -151,6 +167,9 @@ public class TableAnalyzer {
 		}
 	}
 	
+	/**
+	 * Summarized instructions for this project.
+	 */
 	public void INSTRUCTIONS()
 	{
 		//INSTRUCTIONS:
