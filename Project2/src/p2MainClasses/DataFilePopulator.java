@@ -117,6 +117,7 @@ public class DataFilePopulator {
 		} catch (IOException e) {
 			System.out.println("error writing attributes to file");
 		}
+		sc.close();
 	}
 
 	private static int getID(String type) {
@@ -228,6 +229,7 @@ public class DataFilePopulator {
 			if(decision.equalsIgnoreCase("NO"))
 				done = true;
 		}
+		sc.close();
 	}
 
 	private static void writeDateToFile(byte day, byte month, short year) {
@@ -321,6 +323,7 @@ public class DataFilePopulator {
 		return false;
 	}
 
+	@SuppressWarnings("unused")
 	private static boolean isCompatibleType(String data) {
 		// TODO Auto-generated method stub
 		ValidTypes vt = new ValidTypes();

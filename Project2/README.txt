@@ -1,4 +1,4 @@
-P2_801134568 ver: 1.0 10\16\2016
+P2_801134568 version: 1.0 10\16\2016
 
 This program accepts a table with tuples as a Random Access File for analyzing
 the frequency and percentage of each tuple combination selected by user.
