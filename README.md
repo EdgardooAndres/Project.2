@@ -1,0 +1,2 @@
+#  Introduction
+In this programming project, you will implement two Java applications. One of them will allow the creation of a data file containing data corresponding to a table; where each column of the table corresponds to a different attribute and each row corresponds to a sequence of values assigned to each one of those attributes. The other Java application to implement will serve as a tool for simple data analytics using the data extracted from that type of table. The data to be analyzed is read from a random access file. 
